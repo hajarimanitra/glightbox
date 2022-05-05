@@ -24,6 +24,17 @@ function glightbox_library_info() {
       $module_path . '/library/glightbox.min.css' => array(),
     ),
   );
+  $libraries['justifiedGallery'] = array(
+    'title' => 'JustifiedGallery',
+    'website' => 'https://github.com/biati-digital/glightbox',
+    'version' => '3.1.0',
+    'js' => array(
+      $module_path . '/library/justifiedGallery.min.js' => array(),
+    ),
+    'css' => array(
+      $module_path . '/library/justifiedGallery.min.css' => array(),
+    ),
+  );
 
   return $libraries;
 }
@@ -73,6 +84,7 @@ function glightbox_field_formatter_info() {
         'glightbox_view_mode' => '',
         'glightbox_gallery_id' => '',
         'glightbox_gallery_mode' => FALSE,
+        'glightbox_row_height' => 300,
       ),
     ),
   );
@@ -183,6 +195,12 @@ function glightbox_field_formatter_settings_form($field, $instance, $view_mode, 
       '#default_value' => $settings['glightbox_gallery_mode'],
     );
   }
+  $element['glightbox_row_height'] = array(
+    '#type' => 'number',
+    '#title' => t('Row height in px'),
+    '#description' => t('Enter desired row height.'),
+    '#default_value' => $settings['glightbox_row_height'],
+  );
 
   return $element;
 }
@@ -291,7 +309,14 @@ function glightbox_field_formatter_view($entity_type, $entity, $field, $instance
       '#gallery_id'           => $gallery_id,
     );
   }
-
+  $rowHeight = $settings['glightbox_row_height'];
+  $module_dir = backdrop_get_path('module', 'glightbox');
+  backdrop_add_library('glightbox', 'justifiedGallery', FALSE);
+  backdrop_add_css($module_dir . '/library/justifiedGallery.min.css');
+  //backdrop_add_js(array('viewsPhotoGrid' => array('gridPadding' => $handler->options['grid_padding'])), 'setting');
+  backdrop_add_js($module_dir . '/library/justifiedGallery.min.js');
+  backdrop_add_js($module_dir . '/js/remove_wrap.js');
+  backdrop_add_js($rowHeight, 'setting');
   return $element;
 }
 
