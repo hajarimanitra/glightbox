@@ -315,7 +315,7 @@ function glightbox_field_formatter_view($entity_type, $entity, $field, $instance
   backdrop_add_css($module_dir . '/library/justifiedGallery.min.css');
   //backdrop_add_js(array('viewsPhotoGrid' => array('gridPadding' => $handler->options['grid_padding'])), 'setting');
   backdrop_add_js($module_dir . '/library/justifiedGallery.min.js');
-  backdrop_add_js($module_dir . '/js/remove_wrap.js');
+  backdrop_add_js($module_dir . '/js/justifed_gallery.js');
   backdrop_add_js($rowHeight, 'setting');
   return $element;
 }
